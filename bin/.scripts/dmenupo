@@ -1,0 +1,8 @@
+#!/bin/bash
+
+case "$(printf "exit dwm\\nsuspend\\nreboot\\nshutdown" | dmenu -i -p "power options")" in
+	"exit dwm") pkill dwm ;;
+	suspend) sudo zzz ;;
+	reboot) sudo shutdown -r now ;;
+	shutdown) sudo shutdown -h now ;;
+esac

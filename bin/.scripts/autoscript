@@ -1,0 +1,9 @@
+#!/bin/bash
+
+sfile="$HOME/.scripts/$1"
+
+[ -f $sfile ] && $EDITOR $sfile && exit
+
+echo '#!/bin/bash' > $sfile
+chmod +x $sfile
+$EDITOR $sfile

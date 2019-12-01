@@ -1,0 +1,3 @@
+#!/bin/sh
+
+echo ~/.cache/wal/colors-wal-dwm.h | entr -p "sed -i '/urg/d' $HOME/.cache/wal/colors-wal-dwm.h"

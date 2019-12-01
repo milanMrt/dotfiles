@@ -1,0 +1,40 @@
+#!/bin/bash
+
+print_volume() {
+	volume="$(pamixer --get-volume)"
+	if test "$volume" -gt 0
+	then
+		echo -e "${volume}%"
+	fi
+}
+
+print_temp(){
+	test -f /sys/class/thermal/thermal_zone0/temp || return 0
+	echo $(head -c 2 /sys/class/thermal/thermal_zone0/temp)C°
+}
+
+print_bat(){
+	hash acpi || return 0
+	onl="$(grep "on-line" <(acpi -V))"
+	charge="$(awk '{ sum += $1 } END { print sum }' /sys/class/power_supply/BAT*/capacity)"
+	if test -z "$onl"
+	then
+		# suspend when we close the lid
+		#systemctl --user stop inhibit-lid-sleep-on-battery.service
+		echo -e "${charge}%"
+	else
+		# On mains! no need to suspend
+		#systemctl --user start inhibit-lid-sleep-on-battery.service
+		echo -e "${charge}%"
+	fi
+}
+
+print_date(){
+	date +'%d/%m/%Y %H:%M'
+}
+
+while true
+do
+	xsetroot -name "Temp: $(print_temp) | Vol: $(print_volume) | Bat: $(print_bat) | $(print_date)"
+	sleep 1
+done

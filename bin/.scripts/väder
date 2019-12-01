@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+#
+# Get's weather information from openweathermap #
+#
+
+import requests
+
+def main(url):
+    try:
+        with requests.get(url) as r:
+            r.raise_for_status()
+            if r.status_code == 200:
+                desc = r.json()['weather'][0]['main']
+                temp = r.json()['main']['temp']
+                print("%s %s°C" % (desc, temp))
+
+    except requests.ConnectionError:
+        print("No internet == No weather.")
+
+if __name__ == "__main__":
+    main("https://api.openweathermap.org/data/2.5/weather?q=Uppsala&units=metric&APPID=c0d1364327bf281d42535ead89258a36")
