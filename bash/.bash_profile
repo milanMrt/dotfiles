@@ -3,7 +3,7 @@
 export PATH="$PATH:$HOME/.scripts"
 export EDITOR="vim"
 export TERMINAL="st"
-export BROWSER="chromium"
+export BROWSER="firefox"
 export PAGER="less"
 export READER="zathura"
 
