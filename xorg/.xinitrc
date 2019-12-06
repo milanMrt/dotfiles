@@ -11,10 +11,9 @@ xset -b
 xbacklight -set 60
 
 dunst &
+compton -b --config $HOME/.config/compton/compton.conf
 
 setxkbmap -model thinkpad -layout se
-
-xwallpaper --output LVDS1 --center .config/wall.jpg
 
 dwm_status &
 
